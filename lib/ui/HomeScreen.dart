@@ -6,21 +6,35 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final TextEditingController _controlePeso = new TextEditingController();
   int radioValor = 1;
   String _nomePlaneta = "";
+
+  bool selectionValueA = true;
+  bool selectionValueB = false;
+  bool selectionValueC;
+  bool switchValue = false;
+
+  double _resltFinal = 0.0;
 
   void tomaContaValorRadio(int valor) {
     setState(() {
       radioValor = valor;
       switch (radioValor) {
         case 0:
-          _nomePlaneta = "Planeta Pluto";
+          _resltFinal = calcularPesoEmPlaneta(_controlePeso.text, 0.06);
+          _nomePlaneta =
+              "O seu peso em plutão é ${_resltFinal.toStringAsFixed(2)}";
           break;
         case 1:
-          _nomePlaneta = "Planeta Marte";
+          _resltFinal = calcularPesoEmPlaneta(_controlePeso.text, 0.38);
+          _nomePlaneta =
+              "O seu peso em Marte é ${_resltFinal.toStringAsFixed(2)}";
           break;
         case 2:
-          _nomePlaneta = "Planeta Vênus";
+          _resltFinal = calcularPesoEmPlaneta(_controlePeso.text, 0.91);
+          _nomePlaneta =
+              "O seu peso em Vênus é ${_resltFinal.toStringAsFixed(2)}";
           break;
         default:
       }
@@ -51,6 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 children: <Widget>[
                   TextField(
+                    controller: _controlePeso,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                         labelText: 'O seu peso na Terra',
@@ -66,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           groupValue: radioValor,
                           onChanged: tomaContaValorRadio),
                       Text(
-                        "Pluto",
+                        "Plutão",
                         style: TextStyle(
                           color: Colors.black,
                         ),
@@ -97,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   // Resultado
                   Text(
-                    "O meu peso...",
+                    "$_nomePlaneta",
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 20.1,
@@ -111,5 +126,14 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  double calcularPesoEmPlaneta(String peso, double gravidadeSuperficial) {
+    if (int.parse(peso).toString().isNotEmpty && int.parse(peso) > 0) {
+      return (int.parse(peso) * gravidadeSuperficial);
+    } else {
+      print("Numero errado...");
+      return int.parse("180") * 0.38; // devolve-nos um peso padrao
+    }
   }
 }
