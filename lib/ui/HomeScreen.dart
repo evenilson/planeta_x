@@ -23,18 +23,15 @@ class _HomeScreenState extends State<HomeScreen> {
       switch (radioValor) {
         case 0:
           _resltFinal = calcularPesoEmPlaneta(_controlePeso.text, 0.06);
-          _nomePlaneta =
-              "O seu peso em plutão é ${_resltFinal.toStringAsFixed(2)}";
+          _nomePlaneta = "Peso em plutão é ${_resltFinal.toStringAsFixed(2)}";
           break;
         case 1:
           _resltFinal = calcularPesoEmPlaneta(_controlePeso.text, 0.38);
-          _nomePlaneta =
-              "O seu peso em Marte é ${_resltFinal.toStringAsFixed(2)}";
+          _nomePlaneta = "Peso em Marte é ${_resltFinal.toStringAsFixed(2)}";
           break;
         case 2:
           _resltFinal = calcularPesoEmPlaneta(_controlePeso.text, 0.91);
-          _nomePlaneta =
-              "O seu peso em Vênus é ${_resltFinal.toStringAsFixed(2)}";
+          _nomePlaneta = "Peso em Vênus é ${_resltFinal.toStringAsFixed(2)}";
           break;
         default:
       }
@@ -112,7 +109,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   // Resultado
                   Text(
-                    "$_nomePlaneta",
+                    _controlePeso.text.isEmpty
+                        ? "Informe o seu peso"
+                        : _nomePlaneta + "Kg",
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 20.1,
